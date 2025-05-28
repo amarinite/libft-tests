@@ -13,15 +13,6 @@ int main(void)
     test_ft_isdigit();
     test_ft_isprint();
     test_ft_itoa();
-    test_ft_lstadd_front_bonus();
-    test_ft_lstadd_back_bonus();
-    test_ft_lstclear_bonus();
-    test_ft_lstdelone_bonus();
-    test_ft_lstiter_bonus();
-    test_ft_lstlast_bonus();
-    test_ft_lstmap_bonus();
-    test_ft_lstnew_bonus();
-    test_ft_lstsize_bonus();
     test_ft_memchr();
     test_ft_memcmp();
     test_ft_memcpy();
@@ -46,6 +37,19 @@ int main(void)
     test_ft_substr();
     test_ft_tolower();
     test_ft_toupper();
+
+    #ifndef REGULAR_ONLY
+        // Bonus tests - only compiled when not REGULAR_ONLY
+        test_ft_lstadd_front_bonus();
+        test_ft_lstadd_back_bonus();
+        test_ft_lstclear_bonus();
+        test_ft_lstdelone_bonus();
+        test_ft_lstiter_bonus();
+        test_ft_lstlast_bonus();
+        test_ft_lstmap_bonus();
+        test_ft_lstnew_bonus();
+        test_ft_lstsize_bonus();
+    #endif
 
     printf("\n=== ALL TESTS COMPLETED ===\n");
     return 0;
