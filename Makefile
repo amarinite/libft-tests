@@ -1,9 +1,10 @@
 # Makefile for tests directory
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -I../libft
 
 # Main library
-LIBFT = ../libft/libft.a
+LIBFT_DIR = ../libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
 # Test source files
 BONUS_TEST_SRC = $(wildcard test_ft_lst*_bonus.c)
@@ -17,17 +18,20 @@ MAIN_ALL = test_all
 # Default rule - runs regular tests only
 all: $(MAIN_REGULAR)
 
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
 # Rule to compile regular tests only
 $(MAIN_REGULAR): $(REGULAR_TEST_SRC) $(LIBFT)
-	$(CC) $(CFLAGS) -DREGULAR_ONLY $(REGULAR_TEST_SRC) -L../libft -lbsd -lft -o $(MAIN_REGULAR)
+	$(CC) $(CFLAGS) -DREGULAR_ONLY $(REGULAR_TEST_SRC) $(LIBFT) -lbsd -o $(MAIN_REGULAR)
 
 # Rule to compile bonus tests only
 $(MAIN_BONUS): $(BONUS_TEST_SRC) $(LIBFT)
-	$(CC) $(CFLAGS) -DBONUS_ONLY $(BONUS_TEST_SRC) -L../libft -lbsd -lft -o $(MAIN_BONUS)
+	$(CC) $(CFLAGS) -DBONUS_ONLY $(BONUS_TEST_SRC) $(LIBFT) -lbsd -o $(MAIN_BONUS)
 
 # Rule to compile all tests together
 $(MAIN_ALL): $(REGULAR_TEST_SRC) $(BONUS_TEST_SRC) $(LIBFT)
-	$(CC) $(CFLAGS) $(REGULAR_TEST_SRC) $(BONUS_TEST_SRC) -L../libft -lbsd -lft -o $(MAIN_ALL)
+	$(CC) $(CFLAGS) $(REGULAR_TEST_SRC) $(BONUS_TEST_SRC) $(LIBFT) -lbsd -o $(MAIN_ALL)
 
 # Run regular tests only
 run: $(MAIN_REGULAR)
